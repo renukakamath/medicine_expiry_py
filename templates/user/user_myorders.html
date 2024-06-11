@@ -1,0 +1,48 @@
+{% include 'user/user_header.html' %}
+<form action="" method="post">
+
+<center>
+    {% if data['sid'] %}
+    <div id="k" style="height:300px ;">
+        <table class="table" style="width: 700px;">
+            <tr>
+                <th>Complaint</th>
+                <td><input type="text" name="comp" class="form-control"></td>
+                <td><input type="hidden" name="sid" class="form-control" value="{{data['sid']}}"></td>
+            </tr>
+            <tr>
+                <td align="center" style="width: 200px" colspan="2"><input type="submit" name="send" value="Post" class="btn btn-success"></td>
+            </tr>
+        </table>
+        
+    </div>
+    {% else %}
+    <div id="k" style="height:300px ;"><h1 align="center">Purchased details</h1></div>
+    <table class="table" style="width: 900px;">
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Nname</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Expiry Date</th>
+        </tr>
+        {% for row in data['od'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            <td>{{row['description']}}</td>
+            <td>{{row['quantity']}}</td>
+            <td>{{row['price']}}</td>
+            
+            <td>{{row['exp_date']}}</td>
+             <td><a href="?sid={{row['shop_id']}}" class="btn btn-danger">Send Complaints</a></td>
+        </tr>
+        
+       
+        {% endfor %}
+    </table>
+</center>
+{% endif %}
+</form>
+{% include 'public/footer.html' %}

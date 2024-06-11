@@ -1,0 +1,126 @@
+{% include 'user/user_header.html' %}
+
+<div {% if data['dm'] %} id="k"   {% endif %}>
+<form action="" method="post">  
+    <center>
+        <script type="text/javascript">
+            function TextOnTextChange()
+            {
+                var x =document.getElementById("p_amount").value;
+                var y =document.getElementById("p_qnty").value;
+                document.getElementById("t_amount").value = x * y;
+            }
+        
+        </script> 
+        {% if data['dm'] %}
+        <h1 id="l">Cart  Medicine</h1>
+        <table class="table" style="width: 700px;" id="l" >
+            <tr>
+                <th>MedicineName</th>
+                <td><input type="text" class="form-control" name="mname" required disabled value="{{data['dm'][0]['medicine_name']}}"></td>
+                <td><input type="hidden" class="form-control" name="mid" required  value="{{data['dm'][0]['medicine_id']}}"></td>
+            </tr>
+            
+            <tr>
+                <th>Price For Strip</th>
+                <td><input type="text" name="pri" id="p_amount" readonly class="form-control" value="{{data['dm'][0]['price']}}" ></td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td><input type="text" name="qua" id="p_qnty" onchange="TextOnTextChange()" required class="form-control"></td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td><input type="text" name="tot" id="t_amount" required readonly class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit" class="btn btn-success" name="add" value="Add"></td>
+            </tr>
+        </table>
+    </center>
+</form>
+</div>
+{% elif data['pay'] %}
+<div id="k">
+    <h1 id="l">Make Payment</h1>
+        <form action="" method="post">
+            <center>
+                <table class="table" style="width:700px ;color: aliceblue;" id="l">
+                    <tr>
+                        <th>Total Amount</th>
+                        <td><input type="text" name="tamt" value="{{data['pay']}}" readonly class="form-control"></td>
+                    </tr>
+                    <th style="color: red;"><i class="fa bi-credit-card-2-back fa-lg"></i> visa<i class="fa bi-paypal fa-lg"></i></th>
+                    
+                    <tr>
+                        <th>CARD HOLDER NAME</th>
+                        <td> <input type="text" name="" class="form-control" ></td>
+                        <td> <input type="hidden" name="sp_id" class="form-control" value="{{data['sp_id']}}" ></td>
+                        <td> <input type="hidden" name="om_id" class="form-control" value="{{data['om_id']}}" ></td>
+                    </tr>
+                    <tr>
+                        <th>CARD NUMBER</th>
+                        <td><input type="text" name="" pattern="[0-9]{16}" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>CVV</th>
+                        <td><input type="text" name="" pattern="[0-9]{3}" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>EXP DATE</th>
+                        <td style="display: flex;"><input type="month" name="" pattern="[0-9]{2}" class="form-control" placeholder="MM"></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2" ><input type="submit" name="pay" value="Pay" class="btn btn-success" style="width: 250px;"></td>
+                    </tr>
+                </table>
+            </center>
+        </form>
+
+    </div>
+{% else %}
+<div id="k" style="height:300px ;"><h1 align="center">Purchased details</h1></div>
+<center>
+    
+    <table class="table" style="width: 900px;">
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Nname</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Expiry Date</th>
+        </tr>
+        {% for row in data['od'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            <td>{{row['description']}}</td>
+            <td>{{row['quantity']}}</td>
+            <td>{{row['price']}}</td>
+            
+            <td>{{row['exp_date']}}</td>
+        </tr>
+        
+        {% endfor %}
+        {% if data['od'] %}
+        <tr>
+            <td> RS: {{data['od'][0]['total']}}</td>
+            <td><input type="hidden" name="amt" value="{{data['od'][0]['total']}}"></td>
+            <td><input type="hidden" name="sp_id" value="{{data['od'][0]['shop_id']}}"></td>
+            <td><input type="hidden" name="om_id" value="{{data['od'][0]['om_id']}}"></td>
+            <td><a href="?rm={{data['od'][0]['om_id']}}">Remove all</a></td>
+            <td align="right" colspan="5"><input type="submit" name="checkout" class="btn btn-success " value="paynow "></td>
+            </tr>
+        {% else %}
+        <tr>
+            <td align="center" colspan="6" style="color: red;font-size: larger ;" class="alert alert-danger ">Your Cart Is Empty.... </td>
+        </tr>
+        {% endif %}
+    </table>
+</center>
+{% endif %}
+
+
+
+{% include 'public/footer.html' %}

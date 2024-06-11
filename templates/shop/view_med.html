@@ -1,0 +1,31 @@
+{% include 'shop/shop_header.html' %}
+<form action="" method="post">
+<div id="k" style="height:300px ;"></div>
+
+<center>
+    <h1>View Medicine</h1>
+    <table class="table" style="width: 800px;">
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Name</th>
+            <th>Descripion</th>
+            <th>Stock</th>
+            <th>Price(per strip)</th>
+            <th>Expiry Date</th>
+        </tr>
+        {% for row in data['md'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            <td>{{row['description']}}</td>
+            <td>{{row['stock']}}</td>
+            <td>{{row['price']}}</td>
+            <td>{{row['exp_date']}}</td>
+            <td><a href="purchasemed?id={{row['medicine_id']}}" class="btn btn-dark">Purchase</a></td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+</form>
+{% include 'public/footer.html' %}

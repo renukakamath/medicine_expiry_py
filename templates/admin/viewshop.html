@@ -1,0 +1,35 @@
+{% include 'admin/admin_header.html' %}
+<form action="" method="post">
+<div id="k" style="height:300px ;"><h1 align="center">View Shop</h1></div>
+
+<center>
+    
+    <table class="table" style="width: 900px;">
+        <tr>
+            <th>Si No</th>
+            <th>Shop Name</th>
+           
+            <th>place</th>
+            <th>phone</th>
+           
+            <th>email</th>
+        </tr>
+        {% for row in data['shp'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['shop_name']}}</td>
+            
+            <td>{{row['place']}}</td>
+            <td>{{row['phone']}}</td>
+            
+            <td>{{row['email']}}</td>
+           
+          
+           
+            
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+</form>
+{% include 'public/footer.html' %}

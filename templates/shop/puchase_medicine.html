@@ -1,0 +1,74 @@
+{% include 'shop/shop_header.html' %}
+<div {% if data['dm'] %} id="k"   {% endif %}>
+<form action="" method="post">  
+    <center>
+        <script type="text/javascript">
+            function TextOnTextChange()
+            {
+                var x =document.getElementById("p_amount").value;
+                var y =document.getElementById("p_qnty").value;
+                document.getElementById("t_amount").value = x * y;
+            }
+        
+        </script> 
+        {% if data['dm'] %}
+        <h1>Purcahse Medicine</h1>
+        <table class="table" style="width: 700px;" >
+            <tr>
+                <th>MedicineName</th>
+                <td><input type="text" class="form-control" name="mname" required disabled value="{{data['dm'][0]['medicine_name']}}"></td>
+            </tr>
+            <tr>
+                <th>Vendor Name</th>
+                <td><input type="text" name="ven" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Cost Price</th>
+                <td><input type="text" name="pri" id="p_amount" class="form-control"></td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td><input type="text" name="qua" id="p_qnty" onchange="TextOnTextChange()" required class="form-control"></td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td><input type="text" name="tot" id="t_amount" required readonly class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit" class="btn btn-success" name="add" value="Purchase"></td>
+            </tr>
+        </table>
+    </center>
+</form>
+</div>
+
+{% else %}
+<div id="k" style="height:300px ;"></div>
+<center>
+    <h1>Purchased details</h1>
+    <table class="table" style="width: 900px;">
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Nname</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Cost Price</th>
+            <th>Total Amount</th>
+            <th>Purchase Date</th>
+        </tr>
+        {% for row in data['vp'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            <td>{{row['Description']}}</td>
+            <td>{{row['quantity']}}</td>
+            <td>{{row['cost_price']}}</td>
+            <td>{{row['total_amt']}}</td>
+            <td>{{row['purc_date']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+{% endif %}
+
+{% include 'public/footer.html' %}

@@ -1,0 +1,71 @@
+{% include 'admin/admin_header.html' %}
+
+<div id="k">
+    
+<form action="" method="post">
+    <center>
+        <h1>Manage Medicine</h1>
+        <table class="table" style="width:500px; ">
+            <tr>
+                <th>Medicinename</th>
+                <td><input type="text" name="mname" class="form-control" required value="{% if data ['sc'] %}{{data['sc'][0]['medicine_name']}}{% endif %}"></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td><input type="text" name="mdesc" class="form-control" required value="{% if data ['sc'] %}{{data['sc'][0]['description']}}{% endif %}"></td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td><input type="text" name="mstock" class="form-control" required value="{% if data ['sc'] %}{{data['sc'][0]['stock']}}{% endif %}"></td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td><input type="text" name="mprice"class="form-control" required value="{% if data ['sc'] %}{{data['sc'][0]['price']}}{% endif %}"></td>
+            </tr>
+            <tr>
+                <th>Exp Date</th>
+                <td><input type="date" name="exp" class="form-control" required value="{% if data ['sc'] %}{{data['sc'][0]['exp_date']}}{% endif %}"></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit"  class="btn btn-success" style="width: 250px;" {% if data['sc'] %} name="edit" value="Update" {% else %} name="add" value="register" {% endif %} ></td>
+            </tr>
+        </table>
+
+    </center>
+</form>
+</div>
+<center>
+    <h2>View Medicines</h2>
+    <table class="table" style="width: 1000px;">
+
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Name</th>
+            <th>Descripion</th>
+            <th>Stock</th>
+            <th>Price(per strip)</th>
+            <th>Expiry Date</th>
+        </tr>
+        {% for row in data['md'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            <td>{{row['description']}}</td>
+            <td>{{row['stock']}}</td>
+            <td>{{row['price']}}</td>
+            <td>{{row['exp_date']}}</td>
+
+            {% if row['exp_date']<=data['today'] %}
+            <td ><span class="btn btn-danger btn-sm" >Expired</span></td>
+            <td><a href="?medid={{row['medicine_id']}}" class="btn btn-danger btn-sm">Remove</a></td>
+           {% else %}
+
+            <td><a href="?action=update&id={{row['medicine_id']}}" class="btn btn-warning btn-sm">Update</a></td>
+            <td><a href="?action=detele&id={{row['medicine_id']}}" class="btn btn-danger btn-sm">Delete</a></td>
+             {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'public/footer.html' %}

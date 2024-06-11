@@ -1,0 +1,33 @@
+{% include 'shop/shop_header.html' %}
+<form action="" method="post">
+<div id="k" style="height:300px ;"><h1 align="center">View Bookings</h1></div>
+
+<center>
+    
+    <table class="table" style="width: 900px;">
+        <tr>
+            <th>Si No</th>
+            <th>Medicine Nname</th>
+           
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Expiry Date</th>
+        </tr>
+        {% for row in data['book'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['medicine_name']}}</td>
+            
+            <td>{{row['quantity']}}</td>
+            <td>{{row['price']}}</td>
+            
+            <td>{{row['date']}}</td>
+            <td><a href="Viewpayment?uid={{row['user_id']}}" class="btn btn-warning">View Payment</a></td>
+            <td><a href="?action=update&omid={{row['om_id']}}" class="btn btn-warning">dispatched</a></td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+</form>
+{% include 'public/footer.html' %}

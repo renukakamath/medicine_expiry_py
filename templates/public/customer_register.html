@@ -1,0 +1,45 @@
+{% include 'public/public_header.html' %}
+
+<div id="k">
+    
+<form action="" method="post">
+    <center>
+        <h1>Customer  Registration</h1>
+        <table class="table" style="width:500px;color:white; ">
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" name="fname" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" name="lname" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td><input type="text" name="place" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td><input type="text" name="phone" pattern="[0-9]{10}" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td><input type="email" name="email" class="form-control" required></td>
+            </tr>
+             <tr>
+                <th>Username</th>
+                <td><input type="text" name="uname" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><input type="password" minlength="8" name="passw"class="form-control" required></td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2"><input type="submit" name="add" value="register" class="btn btn-success" style="width: 250px;"></td>
+            </tr>
+        </table>
+    </center>
+</form>
+</div>
+
+{% include 'public/footer.html' %}
